@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body), sans-serif;
+}
+
+.font-heading {
+  font-family: var(--font-heading), sans-serif;
+}
+
+/* High-contrast focus ring, visible on both light and dark section backgrounds. */
+:focus-visible {
+  outline: 3px solid #a6ff3d;
+  outline-offset: 2px;
+}
+
+/* Prevents mobile browsers from swallowing the first tap as part of a double-tap-to-zoom
+   gesture on the +/- steppers and other buttons. */
+button,
+a {
+  touch-action: manipulation;
+}

@@ -47,7 +47,6 @@ export const TARGET_BACKUP_HOURS = 6;
 export interface BatteryOption {
   ah: number;
   label: string;
-  /** [TODO: confirm 150 AH price — the original brief's ₹1,85,000 is ~10x the other two and looks like a typo] */
   price: number;
 }
 

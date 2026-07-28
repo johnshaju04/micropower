@@ -1,14 +1,16 @@
 import { Users, BatteryFull, Calendar } from "lucide-react";
 import { IsoBadge, WarrantyBadge } from "./Badges";
-
-// [TODO: client to confirm number] — placeholder stats until real figures are provided.
-const STATS = [
-  { icon: Calendar, value: "15+", label: "Years in Business" },
-  { icon: Users, value: "10,000+", label: "Customers Served" },
-  { icon: BatteryFull, value: "Tubular", label: "Technology, Built to Last" },
-];
+import { COMPANY_FOUNDED_YEAR } from "@/lib/constants";
 
 export function TrustSection() {
+  const yearsInBusiness = new Date().getFullYear() - COMPANY_FOUNDED_YEAR;
+
+  const STATS = [
+    { icon: Calendar, value: `${yearsInBusiness}+`, label: "Years in Business" },
+    { icon: Users, value: "15,000+", label: "Customers Served" },
+    { icon: BatteryFull, value: "Tubular", label: "Technology, Built to Last" },
+  ];
+
   return (
     <section className="bg-white py-14 sm:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">

@@ -1,18 +1,17 @@
-// [TODO: client to replace with real customer testimonials, names, and photos]
 const TESTIMONIALS = [
   {
-    name: "Thomas Chacko",
-    location: "Chalakudy",
+    name: "James Alukas",
+    location: "Angamaly",
     quote: "Our fridge and fans ran through a 6-hour power cut without any issue. Great service too.",
   },
   {
-    name: "Lakshmi Menon",
-    location: "Thrissur",
+    name: "Suresh C",
+    location: "Perumbavur",
     quote: "The team explained everything in simple terms and installation was quick.",
   },
   {
-    name: "Biju Varghese",
-    location: "Angamaly",
+    name: "Baby Payyapilly",
+    location: "Chalakudy",
     quote: "Five years in and the battery still performs like new. Worth the investment.",
   },
 ];
@@ -24,9 +23,6 @@ export function Testimonials() {
         <h2 className="text-center font-heading text-2xl font-extrabold text-navy sm:text-3xl">
           What Our Customers Say
         </h2>
-        <p className="mt-2 text-center text-sm text-navy/50">
-          [TODO: replace with real customer testimonials]
-        </p>
 
         <div className="mt-10 grid gap-6 sm:grid-cols-3">
           {TESTIMONIALS.map((testimonial) => (

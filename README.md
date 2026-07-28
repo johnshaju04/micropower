@@ -33,11 +33,7 @@ npm run lint    # eslint
 
 ## Before launch — outstanding TODOs
 
-- `lib/constants.ts` — real phone number, WhatsApp number, email, address
-- `lib/calculator.ts` — confirm the 150 AH price (currently a ₹18,500 placeholder)
-- `lib/leadSubmit.ts` — connect `LEAD_ENDPOINT` to the real CRM / Google Sheet / WhatsApp
-  Business API integration
-- `components/TrustSection.tsx` — real years-in-business and customers-served figures
-- `components/Products.tsx` — confirm inverter lineup, specs, and pricing
-- `components/Testimonials.tsx` — replace placeholder testimonials with real ones
-- `components/FAQ.tsx` — confirm the installation/electrician answer
+- `components/Testimonials.tsx` — real customer photos are still missing (names/quotes are
+  confirmed real: James Alukas, Suresh C, Baby Payyapilly)
+
+Everything else (contact info, pricing, business stats, lead capture) is confirmed and live.

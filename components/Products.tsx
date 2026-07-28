@@ -6,14 +6,12 @@ import { CheckCircle2 } from "lucide-react";
 import { BATTERY_OPTIONS, formatINR } from "@/lib/calculator";
 import { COMPANY_WHATSAPP, HIGHLIGHT_BATTERY_EVENT } from "@/lib/constants";
 
-// [TODO: client to confirm inverter lineup, specs, and pricing]
 const INVERTERS = [
   { name: "Micropower Sine Wave 850VA", spec: "Ideal for lights, fans, and TV", price: 6500 },
   { name: "Micropower Sine Wave 1500VA", spec: "Ideal for fridge + full home essentials", price: 9500 },
 ];
 
 // Combo bundles pair one battery with one inverter at a small discount vs. buying separately.
-// [TODO: client to confirm combo pricing/discount — currently ~5% off the sum of the two items]
 const COMBOS = [
   {
     name: "Starter Combo",

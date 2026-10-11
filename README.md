@@ -1,4 +1,4 @@
-# Micropower Energy Solutions — Website
+# Micropower Industries — Website
 
 Next.js 14 + TypeScript + Tailwind marketing site with an interactive battery-sizing
 calculator in the hero. Full build spec: `micropower-website-prompt.md`. Codebase

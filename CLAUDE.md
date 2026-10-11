@@ -11,7 +11,7 @@ file is a condensed, code-facing summary of it, not a replacement.
 
 ## What this project is
 
-A marketing + lead-generation website for **Micropower Energy Solutions**, an Indian brand
+A marketing + lead-generation website for **Micropower Industries**, an Indian brand
 selling lead-acid tubular batteries and inverters for home power backup. The centerpiece is an
 interactive hero calculator: visitor picks appliances → app estimates required battery size →
 phone number gate → personalized results + CTAs (Shop / WhatsApp / Call).
@@ -34,7 +34,7 @@ phone number gate → personalized results + CTAs (Shop / WhatsApp / Call).
 - Headings: one bold/black geometric sans (Archivo Black / Montserrat ExtraBold / Poppins
   ExtraBold — pick one, use consistently). Body: Inter or Poppins, 16–18px minimum.
 - Logo is a recreated SVG/HTML+CSS wordmark ("MICROPOWER" + right-pointing arrow icon in neon
-  green, "ENERGY SOLUTIONS" subline in neon green) — do not embed the reference JPGs directly in
+  green, "INDUSTRIES" subline in neon green) — do not embed the reference JPGs directly in
   the site, they're for visual reference only.
 - Recreate the "ISO 9001 Certified" seal and "5 Years Warranty" hexagon badge as simple SVGs.
 

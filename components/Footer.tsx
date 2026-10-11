@@ -63,7 +63,7 @@ export function Footer() {
       </div>
 
       <div className="mt-12 border-t border-white/10 pt-6 text-center text-sm text-white/50">
-        © {new Date().getFullYear()} Micropower Energy Solutions. All rights reserved.
+        © {new Date().getFullYear()} Micropower Industries. All rights reserved.
       </div>
     </footer>
   );

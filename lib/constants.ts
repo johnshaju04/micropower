@@ -10,7 +10,7 @@ export const COMPANY_WHATSAPP = "917025305693";
 
 export const COMPANY_EMAIL = "micropowerindustry@gmail.com";
 export const COMPANY_ADDRESS =
-  "Micropower Inc, Near to St.Theresa's College, Kottakkal, Mala, Kuruvilassery, Kerala 680732";
+  "Micropower Industries, Near to St.Theresa's College, Kottakkal, Mala, Kuruvilassery, Kerala 680732";
 
 // Used to compute "X+ Years in Business" in TrustSection so the stat never goes stale.
 export const COMPANY_FOUNDED_YEAR = 2008;

@@ -4,7 +4,7 @@ import { COMPANY_PHONE_TEL, COMPANY_WHATSAPP } from "@/lib/constants";
 /** Persistent WhatsApp + Call bar, fixed at the bottom on mobile, site-wide (not just the hero). */
 export function ContactBar() {
   const whatsappHref = `https://wa.me/${COMPANY_WHATSAPP}?text=${encodeURIComponent(
-    "Hi, I'd like to know more about Micropower batteries and inverters."
+    "Hi, I'd like to know more about Micropower Industries batteries and inverters."
   )}`;
 
   return (

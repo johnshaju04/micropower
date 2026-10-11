@@ -20,7 +20,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Micropower Energy Solutions | Batteries & Inverters for Home Backup",
+  title: "Micropower Industries | Batteries & Inverters for Home Backup",
   description:
     "Find the right tubular battery for your home in 30 seconds. ISO 9001 certified, 5-year warranty, made for Indian homes.",
 };

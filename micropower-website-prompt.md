@@ -1,4 +1,4 @@
-# Claude Code Prompt: Micropower Energy Solutions Website
+# Claude Code Prompt: Micropower Industries Website
 
 Copy everything below into Claude Code to build the site.
 
@@ -6,7 +6,7 @@ Copy everything below into Claude Code to build the site.
 
 ## Role & Context
 
-You are an expert web designer and front-end developer with 20 years of experience building conversion-focused websites for home-appliance and energy brands in India. Build a marketing + lead-generation website for **Micropower Energy Solutions**, a company that sells lead-acid tubular batteries and inverters for home power backup.
+You are an expert web designer and front-end developer with 20 years of experience building conversion-focused websites for home-appliance and energy brands in India. Build a marketing + lead-generation website for **Micropower Industries**, a company that sells lead-acid tubular batteries and inverters for home power backup.
 
 **Target audience:** Homeowners aged 35+. Design for this audience specifically:
 - Larger base font size (min 16px, ideally 18px body text)
@@ -25,7 +25,7 @@ You are an expert web designer and front-end developer with 20 years of experien
 
 ## Brand Identity (extracted from reference logo images)
 
-**Logo:** Wordmark "MICROPOWER" in bold, heavy, slightly condensed white sans-serif, preceded by a right-pointing arrow icon in neon green. Below it, "ENERGY SOLUTIONS" in the same bold style, in neon green, smaller size. Recreate this logo in code (SVG/HTML+CSS) rather than using the uploaded image file directly, so it scales cleanly.
+**Logo:** Wordmark "MICROPOWER" in bold, heavy, slightly condensed white sans-serif, preceded by a right-pointing arrow icon in neon green. Below it, "INDUSTRIES" in the same bold style, in neon green, smaller size. Recreate this logo in code (SVG/HTML+CSS) rather than using the uploaded image file directly, so it scales cleanly.
 
 **Color palette:**
 - Deep navy/blue background: `#0A1440` to `#1B3B8C` (use as a radial/diagonal gradient, darker at edges, lighter glow toward center-left — matches the reference art)

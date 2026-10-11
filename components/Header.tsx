@@ -18,7 +18,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-navy-deep/95 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-        <a href="#home" className="shrink-0" aria-label="Micropower Energy Solutions home">
+        <a href="#home" className="shrink-0" aria-label="Micropower Industries home">
           <Logo />
         </a>
 

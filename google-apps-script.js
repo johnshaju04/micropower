@@ -4,7 +4,7 @@
  * a returning customer's row gets overwritten with their latest calculation, not duplicated.
  *
  * SETUP
- * 1. Go to sheets.google.com, create a new sheet named e.g. "Micropower Leads".
+ * 1. Go to sheets.google.com, create a new sheet named e.g. "Micropower Industries Leads".
  * 2. In row 1, add these column headers (matches the row order appendRow writes below):
  *    Timestamp | Phone | LED/Tube Light | Ceiling Fan | Refrigerator | TV | Wi-Fi Router |
  *    Mobile/Laptop Charging | Total Watts | Recommended Battery | Backup Hours (est.) | Price (INR)

@@ -8,7 +8,7 @@ export function Logo({ className = "" }: { className?: string }) {
   return (
     <span
       role="img"
-      aria-label="Micropower Energy Solutions"
+      aria-label="Micropower Industries"
       className={`inline-flex flex-col items-start leading-none select-none ${className}`}
     >
       <span className="flex items-center gap-1.5">
@@ -18,7 +18,7 @@ export function Logo({ className = "" }: { className?: string }) {
         </span>
       </span>
       <span className="pl-[26px] font-heading text-[10px] font-black tracking-[0.15em] text-accent sm:pl-[30px] sm:text-xs">
-        ENERGY SOLUTIONS
+        INDUSTRIES
       </span>
     </span>
   );

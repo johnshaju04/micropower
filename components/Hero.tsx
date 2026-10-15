@@ -1,5 +1,6 @@
 import { IsoBadge, WarrantyBadge } from "./Badges";
 import { ApplianceCalculator } from "./ApplianceCalculator";
+import { COMPANY_TAGLINE } from "@/lib/constants";
 
 // Alternative headlines to A/B test or swap in:
 // 2. "Never Get Caught in the Dark Again — Find Your Battery in 30 Seconds"
@@ -10,6 +11,10 @@ export function Hero() {
     <section id="home" className="relative overflow-hidden bg-hero-gradient">
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:px-6 sm:py-20 lg:grid-cols-2 lg:gap-16">
         <div className="text-white">
+          {/* Eyebrow: establishes up front that we manufacture, not just resell. */}
+          <p className="mb-3 font-heading text-sm font-bold uppercase tracking-[0.12em] text-accent sm:text-base">
+            {COMPANY_TAGLINE}
+          </p>
           <h1 className="font-heading text-3xl font-black leading-tight sm:text-4xl lg:text-5xl">
             Find the Right Battery for Your Home in <span className="text-accent">30 Seconds</span>
           </h1>

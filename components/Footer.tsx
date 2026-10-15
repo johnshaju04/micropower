@@ -7,6 +7,7 @@ import {
   COMPANY_WHATSAPP,
   COMPANY_EMAIL,
   COMPANY_ADDRESS,
+  MANUFACTURING_SINCE_YEAR,
 } from "@/lib/constants";
 
 export function Footer() {
@@ -16,7 +17,9 @@ export function Footer() {
         <div>
           <Logo />
           <p className="mt-4 max-w-xs text-base text-white/70">
-            Batteries and inverters built for Indian homes — reliable backup, honest advice.
+            A battery and inverter manufacturing company — making tubular batteries in Kerala
+            since {MANUFACTURING_SINCE_YEAR}. Built for Indian homes: reliable backup, honest
+            advice.
           </p>
         </div>
 

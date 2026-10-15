@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
 import { ContactBar } from "@/components/ContactBar";
+import { WhatsAppFloat } from "@/components/WhatsAppFloat";
+import { COMPANY_TAGLINE } from "@/lib/constants";
 
 // Heading font: heavy geometric sans to match the wordmark's bold style.
 const poppins = Poppins({
@@ -20,9 +22,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Micropower Industries | Batteries & Inverters for Home Backup",
-  description:
-    "Find the right tubular battery for your home in 30 seconds. ISO 9001 certified, 5-year warranty, made for Indian homes.",
+  title: "Micropower Industries | Tubular Battery & Inverter Manufacturer in Kerala",
+  description: `${COMPANY_TAGLINE}. Find the right tubular battery for your home in 30 seconds. ISO 9001 certified, 5-year warranty, made for Indian homes.`,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         {children}
         <ContactBar />
+        <WhatsAppFloat />
       </body>
     </html>
   );

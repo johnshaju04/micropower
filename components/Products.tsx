@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { CheckCircle2 } from "lucide-react";
-import { BATTERY_OPTIONS, formatINR } from "@/lib/calculator";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { CheckCircle2, ChevronDown } from "lucide-react";
+import { BATTERY_OPTIONS, formatINR, type BatteryOption } from "@/lib/calculator";
 import { COMPANY_WHATSAPP, HIGHLIGHT_BATTERY_EVENT } from "@/lib/constants";
 
 const INVERTERS = [
@@ -36,6 +37,129 @@ const COMBOS = [
   },
 ];
 
+/**
+ * True only on devices with a real pointer (mouse/trackpad). Hover-to-expand would be a trap
+ * on touch — a tap would fire hover *and* navigate — so touch devices get the button only.
+ * Starts false so server and first client render agree.
+ */
+function useCanHover() {
+  const [canHover, setCanHover] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(hover: hover) and (pointer: fine)");
+    setCanHover(query.matches);
+    const onChange = (event: MediaQueryListEvent) => setCanHover(event.matches);
+    query.addEventListener("change", onChange);
+    return () => query.removeEventListener("change", onChange);
+  }, []);
+
+  return canHover;
+}
+
+/**
+ * Battery card whose spec table expands smoothly on hover (pointer devices) and on tap/click
+ * of the "Specifications" button (every device, plus keyboard). A click pins the panel open so
+ * it doesn't collapse the moment the pointer drifts away while reading.
+ */
+function BatteryCard({ battery, isRecommended }: { battery: BatteryOption; isRecommended: boolean }) {
+  const [hovered, setHovered] = useState(false);
+  const [pinned, setPinned] = useState(false);
+  const canHover = useCanHover();
+  const reduceMotion = useReducedMotion();
+
+  const isOpen = pinned || hovered;
+  const panelId = `battery-specs-${battery.ah}`;
+
+  return (
+    <div
+      id={`battery-${battery.ah}`}
+      onMouseEnter={canHover ? () => setHovered(true) : undefined}
+      onMouseLeave={canHover ? () => setHovered(false) : undefined}
+      // scroll-mt-24 clears the sticky header when "Shop This Battery" scrolls
+      // straight to this specific card — on mobile the grid is one column, so
+      // without a targeted scroll the visitor only ever saw the first (100 AH) card.
+      className={`relative flex scroll-mt-24 flex-col rounded-2xl border-2 p-6 transition-all duration-300 ${
+        isRecommended ? "border-accent bg-accent/10" : "border-navy/10 bg-white"
+      } ${isOpen ? "shadow-xl shadow-navy/10 sm:-translate-y-1" : "shadow-none"}`}
+    >
+      {isRecommended && (
+        <span className="absolute -top-3 left-1/2 inline-flex -translate-x-1/2 items-center gap-1 rounded-full bg-accent px-3 py-1 font-heading text-xs font-bold text-navy">
+          <CheckCircle2 className="h-3.5 w-3.5" aria-hidden="true" />
+          Recommended for you
+        </span>
+      )}
+      <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-surface">
+        <Image
+          src="/images/tubular-battery.jpg"
+          alt={`Micropower ${battery.label} tubular battery`}
+          fill
+          sizes="(min-width: 640px) 33vw, 90vw"
+          className="object-contain"
+        />
+      </div>
+      <span className="mt-4 font-heading text-xl font-extrabold text-navy">
+        {battery.label} Tubular Battery
+      </span>
+      <span className="mt-1 text-base text-navy/60">Reliable backup for everyday Indian homes</span>
+      <span className="mt-4 font-heading text-2xl font-black text-navy">{formatINR(battery.price)}</span>
+
+      <button
+        type="button"
+        onClick={() => setPinned((wasPinned) => !wasPinned)}
+        aria-expanded={isOpen}
+        aria-controls={panelId}
+        className="mt-4 inline-flex min-h-[44px] items-center justify-between gap-2 rounded-xl border-2 border-navy/10 px-4 text-base font-semibold text-navy transition hover:border-navy/30"
+      >
+        Specifications
+        <ChevronDown
+          className={`h-5 w-5 shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+          aria-hidden="true"
+        />
+      </button>
+
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            id={panelId}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: reduceMotion ? 0 : 0.3, ease: "easeOut" }}
+            className="overflow-hidden"
+          >
+            <dl className="mt-4 divide-y divide-navy/10 border-t border-navy/10 pt-2 text-left">
+              {battery.specs.map((spec) => (
+                <div key={spec.label} className="py-2">
+                  <dt className="text-sm font-semibold uppercase tracking-wide text-navy/50">
+                    {spec.label}
+                  </dt>
+                  <dd className="text-base font-semibold text-navy">{spec.value}</dd>
+                  {spec.note && <dd className="mt-0.5 text-sm text-navy/60">{spec.note}</dd>}
+                </div>
+              ))}
+            </dl>
+            {/* Client-facing placeholder notice — [TODO: confirm specs, then delete this line] */}
+            <p className="mt-3 text-sm text-navy/50">
+              Typical values for this size. Confirm exact figures with our team before purchase.
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <a
+        href={`https://wa.me/${COMPANY_WHATSAPP}?text=${encodeURIComponent(
+          `Hi, I'd like to buy the ${battery.label} battery.`
+        )}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-4 inline-flex min-h-[44px] items-center justify-center rounded-full bg-accent py-3 font-heading text-base font-bold text-navy transition hover:brightness-95"
+      >
+        Shop Now
+      </a>
+    </div>
+  );
+}
+
 export function Products() {
   // Set when the visitor arrives here via the results panel's "Shop This Battery" button,
   // so we can highlight the AH size that was actually recommended to them.
@@ -57,53 +181,18 @@ export function Products() {
         </h2>
 
         <h3 className="mt-10 font-heading text-lg font-bold text-navy">Tubular Batteries</h3>
-        <div className="mt-4 grid gap-5 sm:grid-cols-3">
-          {BATTERY_OPTIONS.map((battery) => {
-            const isRecommended = battery.ah === highlightedAh;
-            return (
-              <div
-                key={battery.ah}
-                id={`battery-${battery.ah}`}
-                // scroll-mt-24 clears the sticky header when "Shop This Battery" scrolls
-                // straight to this specific card — on mobile the grid is one column, so
-                // without a targeted scroll the visitor only ever saw the first (100 AH) card.
-                className={`relative flex scroll-mt-24 flex-col rounded-2xl border-2 p-6 transition-colors ${
-                  isRecommended ? "border-accent bg-accent/10" : "border-navy/10 bg-white"
-                }`}
-              >
-                {isRecommended && (
-                  <span className="absolute -top-3 left-1/2 inline-flex -translate-x-1/2 items-center gap-1 rounded-full bg-accent px-3 py-1 font-heading text-xs font-bold text-navy">
-                    <CheckCircle2 className="h-3.5 w-3.5" aria-hidden="true" />
-                    Recommended for you
-                  </span>
-                )}
-                <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-surface">
-                  <Image
-                    src="/images/tubular-battery.jpg"
-                    alt={`Micropower ${battery.label} tubular battery`}
-                    fill
-                    sizes="(min-width: 640px) 33vw, 90vw"
-                    className="object-contain"
-                  />
-                </div>
-                <span className="mt-4 font-heading text-xl font-extrabold text-navy">
-                  {battery.label} Tubular Battery
-                </span>
-                <span className="mt-1 text-base text-navy/60">Reliable backup for everyday Indian homes</span>
-                <span className="mt-4 font-heading text-2xl font-black text-navy">{formatINR(battery.price)}</span>
-                <a
-                  href={`https://wa.me/${COMPANY_WHATSAPP}?text=${encodeURIComponent(
-                    `Hi, I'd like to buy the ${battery.label} battery.`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-auto inline-flex min-h-[44px] items-center justify-center rounded-full bg-accent py-3 font-heading text-base font-bold text-navy transition hover:brightness-95"
-                >
-                  Shop Now
-                </a>
-              </div>
-            );
-          })}
+        <p className="mt-1 text-base text-navy/60">
+          Hover over a battery — or tap <span className="font-semibold">Specifications</span> — to
+          see full technical details.
+        </p>
+        <div className="mt-4 grid items-start gap-5 sm:grid-cols-3">
+          {BATTERY_OPTIONS.map((battery) => (
+            <BatteryCard
+              key={battery.ah}
+              battery={battery}
+              isRecommended={battery.ah === highlightedAh}
+            />
+          ))}
         </div>
 
         <h3 className="mt-12 font-heading text-lg font-bold text-navy">Inverters</h3>

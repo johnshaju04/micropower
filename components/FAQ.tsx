@@ -1,4 +1,20 @@
+import { COMPANY_EXPERIENCE_YEARS, CUSTOMERS_SERVED } from "@/lib/constants";
+
 const FAQS = [
+  {
+    question: "Why choose Micropower Industries?",
+    answer: `Because we make the batteries ourselves, and we have been doing it for a long time. ${COMPANY_EXPERIENCE_YEARS}+ years of manufacturing experience and ${CUSTOMERS_SERVED} homes served mean we have seen just about every backup problem an Indian household can have. Every battery is quality-tested before it leaves our factory, and it is backed by a straightforward warranty we actually honour — no running around. If something isn't right, you reach our own support team, not a call centre. Proudly made in India, for Indian homes and Indian power cuts.`,
+  },
+  {
+    question: "Is installation free?",
+    answer:
+      "Yes — installation is completely free. There are no hidden charges on top of the price you see: our team delivers the battery, sets it up with your inverter, and makes sure everything is running before we leave.",
+  },
+  {
+    question: "Do you provide doorstep service?",
+    answer:
+      "Yes, we do. We come to your home for delivery, installation and any service you need afterwards, so you never have to carry a heavy battery anywhere. Just call or WhatsApp us and we'll arrange a visit.",
+  },
   {
     question: "How long will my fridge run on backup?",
     answer:
@@ -10,7 +26,7 @@ const FAQS = [
       "Not always. If your current inverter is working well, you may only need a new battery. Our team can check your existing setup and tell you honestly what needs replacing.",
   },
   {
-    question: "What's the difference between 100/150/200 AH?",
+    question: "What's the difference between 100/150/200 AH batteries?",
     answer:
       "AH (Amp Hour) is a measure of how much energy a battery can store — think of it like a fuel tank size. A higher AH battery stores more energy and gives longer backup, but costs more. Use the calculator above to see how each size performs for your specific appliances.",
   },

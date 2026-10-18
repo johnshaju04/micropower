@@ -16,7 +16,11 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-navy-deep/95 backdrop-blur">
+    // Opaque background, no backdrop-blur: a blurred sticky layer forces the browser to
+    // re-filter everything behind it on every scroll and repaint, which inflated paint time
+    // (and therefore INP) for every interaction on the page. At 95% opacity the blur was
+    // barely visible anyway.
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-navy-deep">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
         <a href="#home" className="shrink-0" aria-label="Micropower Industries home">
           <Logo />

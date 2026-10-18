@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { Minus, Plus } from "lucide-react";
 import {
   APPLIANCES,
@@ -155,23 +154,15 @@ export function ApplianceCalculator() {
         Calculate My Battery
       </button>
 
-      <AnimatePresence>
-        {modalOpen && (
-          <LeadCaptureModal onClose={() => setModalOpen(false)} onSubmit={handlePhoneSubmit} />
-        )}
-      </AnimatePresence>
+      {modalOpen && (
+        <LeadCaptureModal onClose={() => setModalOpen(false)} onSubmit={handlePhoneSubmit} />
+      )}
 
-      <AnimatePresence>
-        {results && (
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <ResultsPanel results={results} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {results && (
+        <div className="motion-safe:animate-slide-up">
+          <ResultsPanel results={results} />
+        </div>
+      )}
     </div>
   );
 }

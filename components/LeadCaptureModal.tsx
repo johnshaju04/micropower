@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { motion } from "framer-motion";
 import { X } from "lucide-react";
 
 interface LeadCaptureModalProps {
@@ -26,23 +25,17 @@ export function LeadCaptureModal({ onClose, onSubmit }: LeadCaptureModalProps) {
   }
 
   return (
-    <motion.div
+    <div
       role="dialog"
       aria-modal="true"
       aria-labelledby="lead-modal-title"
       // z-[60]: must sit above the fixed mobile ContactBar (z-50) or the bar visually
       // covers the bottom of the modal on small screens. pb-24 keeps a safe gap above it too.
-      className="fixed inset-0 z-[60] flex items-end justify-center bg-navy-deep/70 px-4 pb-24 pt-4 sm:items-center sm:p-4"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[60] flex items-end justify-center bg-navy-deep/70 px-4 pb-24 pt-4 motion-safe:animate-fade-in sm:items-center sm:p-4"
       onClick={onClose}
     >
-      <motion.div
-        className="w-full max-w-md rounded-3xl bg-white p-6 shadow-2xl sm:p-8"
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 24 }}
+      <div
+        className="w-full max-w-md rounded-3xl bg-white p-6 shadow-2xl motion-safe:animate-slide-up sm:p-8"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex items-start justify-between">
@@ -101,7 +94,7 @@ export function LeadCaptureModal({ onClose, onSubmit }: LeadCaptureModalProps) {
             Show My Results
           </button>
         </form>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }

@@ -1,5 +1,4 @@
 import { Users, BatteryFull, Calendar } from "lucide-react";
-import { IsoBadge, WarrantyBadge } from "./Badges";
 import { COMPANY_EXPERIENCE_YEARS, CUSTOMERS_SERVED } from "@/lib/constants";
 
 export function TrustSection() {
@@ -12,12 +11,8 @@ export function TrustSection() {
   return (
     <section className="bg-white py-14 sm:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="flex flex-wrap items-center justify-center gap-10">
-          <IsoBadge className="h-20 w-20" />
-          <WarrantyBadge className="h-20 w-20" />
-        </div>
-
-        <div className="mt-10 grid gap-8 text-center sm:grid-cols-3">
+        {/* ISO + warranty badges live in the Hero and Footer; repeating them here was redundant. */}
+        <div className="grid gap-8 text-center sm:grid-cols-3">
           {STATS.map((stat) => {
             const Icon = stat.icon;
             return (

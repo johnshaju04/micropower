@@ -22,7 +22,8 @@ phone number gate → personalized results + CTAs (Shop / WhatsApp / Call).
 
 - Next.js 14, App Router, TypeScript
 - Tailwind CSS
-- Framer Motion — subtle micro-interactions only, no gimmicks
+- Animations: CSS/Tailwind only (`motion-safe:` keyframes in `tailwind.config.ts`), subtle, no
+  gimmicks. Framer Motion was removed — don't re-add it for simple fades.
 - `lucide-react` for icons
 - Mobile-first responsive. No backend database — lead capture posts to a swappable function.
 

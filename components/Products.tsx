@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { CheckCircle2, ChevronDown } from "lucide-react";
 import { BATTERY_OPTIONS, formatINR, type BatteryOption } from "@/lib/calculator";
 import { COMPANY_WHATSAPP, HIGHLIGHT_BATTERY_EVENT } from "@/lib/constants";
@@ -38,49 +37,19 @@ const COMBOS = [
 ];
 
 /**
- * True only on devices with a real pointer (mouse/trackpad). Hover-to-expand would be a trap
- * on touch — a tap would fire hover *and* navigate — so touch devices get the button only.
- * Starts false so server and first client render agree.
- */
-function useCanHover() {
-  const [canHover, setCanHover] = useState(false);
-
-  useEffect(() => {
-    const query = window.matchMedia("(hover: hover) and (pointer: fine)");
-    setCanHover(query.matches);
-    const onChange = (event: MediaQueryListEvent) => setCanHover(event.matches);
-    query.addEventListener("change", onChange);
-    return () => query.removeEventListener("change", onChange);
-  }, []);
-
-  return canHover;
-}
-
-/**
- * Battery card whose spec table expands smoothly on hover (pointer devices) and on tap/click
- * of the "Specifications" button (every device, plus keyboard). A click pins the panel open so
- * it doesn't collapse the moment the pointer drifts away while reading.
+ * Battery card with a tap-to-open spec table. Uses native <details>, same as the FAQ, so it is
+ * keyboard- and screen-reader-accessible without any extra state.
  */
 function BatteryCard({ battery, isRecommended }: { battery: BatteryOption; isRecommended: boolean }) {
-  const [hovered, setHovered] = useState(false);
-  const [pinned, setPinned] = useState(false);
-  const canHover = useCanHover();
-  const reduceMotion = useReducedMotion();
-
-  const isOpen = pinned || hovered;
-  const panelId = `battery-specs-${battery.ah}`;
-
   return (
     <div
       id={`battery-${battery.ah}`}
-      onMouseEnter={canHover ? () => setHovered(true) : undefined}
-      onMouseLeave={canHover ? () => setHovered(false) : undefined}
       // scroll-mt-24 clears the sticky header when "Shop This Battery" scrolls
       // straight to this specific card — on mobile the grid is one column, so
       // without a targeted scroll the visitor only ever saw the first (100 AH) card.
-      className={`relative flex scroll-mt-24 flex-col rounded-2xl border-2 p-6 transition-all duration-300 ${
+      className={`relative flex scroll-mt-24 flex-col rounded-2xl border-2 p-6 ${
         isRecommended ? "border-accent bg-accent/10" : "border-navy/10 bg-white"
-      } ${isOpen ? "shadow-xl shadow-navy/10 sm:-translate-y-1" : "shadow-none"}`}
+      }`}
     >
       {isRecommended && (
         <span className="absolute -top-3 left-1/2 inline-flex -translate-x-1/2 items-center gap-1 rounded-full bg-accent px-3 py-1 font-heading text-xs font-bold text-navy">
@@ -103,48 +72,30 @@ function BatteryCard({ battery, isRecommended }: { battery: BatteryOption; isRec
       <span className="mt-1 text-base text-navy/60">Reliable backup for everyday Indian homes</span>
       <span className="mt-4 font-heading text-2xl font-black text-navy">{formatINR(battery.price)}</span>
 
-      <button
-        type="button"
-        onClick={() => setPinned((wasPinned) => !wasPinned)}
-        aria-expanded={isOpen}
-        aria-controls={panelId}
-        className="mt-4 inline-flex min-h-[44px] items-center justify-between gap-2 rounded-xl border-2 border-navy/10 px-4 text-base font-semibold text-navy transition hover:border-navy/30"
-      >
-        Specifications
-        <ChevronDown
-          className={`h-5 w-5 shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
-          aria-hidden="true"
-        />
-      </button>
-
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            id={panelId}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: reduceMotion ? 0 : 0.3, ease: "easeOut" }}
-            className="overflow-hidden"
-          >
-            <dl className="mt-4 divide-y divide-navy/10 border-t border-navy/10 pt-2 text-left">
-              {battery.specs.map((spec) => (
-                <div key={spec.label} className="py-2">
-                  <dt className="text-sm font-semibold uppercase tracking-wide text-navy/50">
-                    {spec.label}
-                  </dt>
-                  <dd className="text-base font-semibold text-navy">{spec.value}</dd>
-                  {spec.note && <dd className="mt-0.5 text-sm text-navy/60">{spec.note}</dd>}
-                </div>
-              ))}
-            </dl>
-            {/* Client-facing placeholder notice — [TODO: confirm specs, then delete this line] */}
-            <p className="mt-3 text-sm text-navy/50">
-              Typical values for this size. Confirm exact figures with our team before purchase.
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <details className="group mt-4">
+        <summary className="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-2 rounded-xl border-2 border-navy/10 px-4 text-base font-semibold text-navy transition hover:border-navy/30 [&::-webkit-details-marker]:hidden">
+          Specifications
+          <ChevronDown
+            className="h-5 w-5 shrink-0 transition-transform duration-300 group-open:rotate-180"
+            aria-hidden="true"
+          />
+        </summary>
+        <dl className="mt-4 divide-y divide-navy/10 border-t border-navy/10 pt-2 text-left">
+          {battery.specs.map((spec) => (
+            <div key={spec.label} className="py-2">
+              <dt className="text-sm font-semibold uppercase tracking-wide text-navy/50">
+                {spec.label}
+              </dt>
+              <dd className="text-base font-semibold text-navy">{spec.value}</dd>
+              {spec.note && <dd className="mt-0.5 text-sm text-navy/60">{spec.note}</dd>}
+            </div>
+          ))}
+        </dl>
+        {/* Client-facing placeholder notice — [TODO: confirm specs, then delete this line] */}
+        <p className="mt-3 text-sm text-navy/50">
+          Typical values for this size. Confirm exact figures with our team before purchase.
+        </p>
+      </details>
 
       <a
         href={`https://wa.me/${COMPANY_WHATSAPP}?text=${encodeURIComponent(
@@ -182,8 +133,7 @@ export function Products() {
 
         <h3 className="mt-10 font-heading text-lg font-bold text-navy">Tubular Batteries</h3>
         <p className="mt-1 text-base text-navy/60">
-          Hover over a battery — or tap <span className="font-semibold">Specifications</span> — to
-          see full technical details.
+          Tap <span className="font-semibold">Specifications</span> to see full technical details.
         </p>
         <div className="mt-4 grid items-start gap-5 sm:grid-cols-3">
           {BATTERY_OPTIONS.map((battery) => (
